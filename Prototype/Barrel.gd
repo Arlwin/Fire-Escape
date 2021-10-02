@@ -1,5 +1,7 @@
 extends RigidBody2D
 
+export var DAMAGE = 10
+
 func _ready():
 	pass # Replace with function body.
 

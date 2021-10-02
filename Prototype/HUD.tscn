@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://initialAssets/health_bg.png" type="Texture" id=1]
+[ext_resource path="res://initialAssets/health_fg.png" type="Texture" id=2]
+[ext_resource path="res://initialAssets/health_label.png" type="Texture" id=3]
+[ext_resource path="res://Prototype/HUD.gd" type="Script" id=4]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource( 4 )
+
+[node name="TopContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 10
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TopContainer"]
+margin_left = 20.0
+margin_top = 10.0
+margin_right = 1260.0
+margin_bottom = 58.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TopContainer/HBoxContainer"]
+margin_right = 618.0
+margin_bottom = 48.0
+
+[node name="MarginContainer" type="MarginContainer" parent="TopContainer/HBoxContainer/VBoxContainer"]
+margin_right = 618.0
+margin_bottom = 48.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TopContainer/HBoxContainer/VBoxContainer/MarginContainer"]
+margin_right = 618.0
+margin_bottom = 48.0
+custom_constants/separation = 10
+
+[node name="HealthLabel" type="TextureRect" parent="TopContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+margin_right = 128.0
+margin_bottom = 48.0
+texture = ExtResource( 3 )
+
+[node name="HealthBar" type="TextureProgress" parent="TopContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+margin_left = 138.0
+margin_right = 618.0
+margin_bottom = 48.0
+value = 100.0
+texture_under = ExtResource( 1 )
+texture_progress = ExtResource( 2 )
+fill_mode = 1

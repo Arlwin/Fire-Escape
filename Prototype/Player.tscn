@@ -1,0 +1,95 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://initialAssets/initPlayerSlideHit1.png" type="Texture" id=1]
+[ext_resource path="res://initialAssets/initPlayerSlideHit2.png" type="Texture" id=2]
+[ext_resource path="res://initialAssets/initPlayerRunHit1.png" type="Texture" id=3]
+[ext_resource path="res://initialAssets/initPlayerRunHit2.png" type="Texture" id=4]
+[ext_resource path="res://initialAssets/initPlayerIdle1.png" type="Texture" id=5]
+[ext_resource path="res://initialAssets/initPlayerIdle2.png" type="Texture" id=6]
+[ext_resource path="res://initialAssets/initPlayerIdleHit2.png" type="Texture" id=7]
+[ext_resource path="res://initialAssets/initPlayerRunHit4.png" type="Texture" id=8]
+[ext_resource path="res://initialAssets/initPlayerIdleHit1.png" type="Texture" id=9]
+[ext_resource path="res://initialAssets/initPlayerRunHit3.png" type="Texture" id=10]
+[ext_resource path="res://initialAssets/initPlayerRun2.png" type="Texture" id=11]
+[ext_resource path="res://initialAssets/initPlayerRun1.png" type="Texture" id=12]
+[ext_resource path="res://initialAssets/initPlayerSlide.png" type="Texture" id=13]
+[ext_resource path="res://Prototype/Player.gd" type="Script" id=14]
+[ext_resource path="res://initialAssets/initPlayerJump.png" type="Texture" id=15]
+[ext_resource path="res://initialAssets/initPlayerJumpHit1.png" type="Texture" id=16]
+[ext_resource path="res://initialAssets/initPlayerJumpHit2.png" type="Texture" id=17]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "slide",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "idle",
+"speed": 2.0
+}, {
+"frames": [ ExtResource( 15 ) ],
+"loop": true,
+"name": "jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "slide_hit",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "idle_hit",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 16 ), ExtResource( 17 ) ],
+"loop": true,
+"name": "jump_hit",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 10 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "run_hit",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 12 ), ExtResource( 11 ) ],
+"loop": true,
+"name": "run",
+"speed": 10.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 13, 42 )
+
+[node name="Player" type="KinematicBody2D"]
+position = Vector2( 66.8837, 569.553 )
+collision_mask = 12
+script = ExtResource( 14 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "jump_hit"
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -3, 6 )
+shape = SubResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( -3, 6 )
+shape = SubResource( 2 )
+
+[node name="HitTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]

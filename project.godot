@@ -13,6 +13,10 @@ config_version=4
 config/name="Fire Escape"
 config/icon="res://icon.png"
 
+[autoload]
+
+Global="*res://Prototype/Global.gd"
+
 [display]
 
 window/size/width=1280
@@ -27,6 +31,7 @@ layers=false
 2d_physics/layer_1="player"
 2d_physics/layer_2="environment"
 2d_physics/layer_3="walls"
+2d_physics/layer_4="ground"
 
 [physics]
 
