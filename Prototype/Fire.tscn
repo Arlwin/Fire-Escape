@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://initialAssets/initFire2.png" type="Texture" id=1]
+[ext_resource path="res://initialAssets/initFire0.png" type="Texture" id=2]
+[ext_resource path="res://initialAssets/initFire1.png" type="Texture" id=3]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="Fire" type="StaticBody2D"]
+collision_layer = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( -8, 0 )
+build_mode = 1
+polygon = PoolVector2Array( -24, 32, 40, 32, 39.9485, 13.8943, 34.7457, 11.6645, 31.6241, 10.4753, 28.2051, 11.9618, 31.1781, 10.7726, 26.5699, 11.5902, 25.4551, 10.624, 24.1915, 7.35367, 20.9955, 5.34688, 17.4287, 2.71893, 16.2395, 3.53651, 11.4076, 3.3401, 10.813, 8.09692, 10.7386, 9.28613, 9.54942, 9.58343, 7.4683, 11.3672, 5.01557, 8.3199, 2.86013, 4.97526, 2.56283, 2.29954, 3.45557, -0.70004, 2.11771, -1.7406, -0.780987, -2.0379, -1.44991, -1.66627, -2.19317, 0.489167, -2.71345, 2.94191, -7.99138, 0.144104, -8.95761, 3.56307, -9.77436, 5.69195, -12.1528, 5.76627, -14.9028, 5.8406, -16.1672, 6.31312, -17.5794, 7.05637, -19.2889, 7.87395, -20.3294, 11.0699, -20.3286, 13.7934, -22.6327, 14.388, -24, 16 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+frame = 1
+playing = true
