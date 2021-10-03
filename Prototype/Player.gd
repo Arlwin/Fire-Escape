@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 signal playerHit(value, total)
+signal gameOver(done)
 
 export var MOVE_SPEED = 200
 export var GRAVITY = 9.8 * 100
@@ -12,17 +13,25 @@ var velocity = Vector2()
 onready var jump = false
 onready var global = get_node("/root/Global")
 onready var hit = false
-
-onready var health = 100
+onready var dead = false
 
 func _ready():
+	if global.playerVelocity != null:
+		velocity = global.playerVelocity
 	if global.playerHealth == null:
 		global.playerHealth = MAX_HEALTH
 	pass # Replace with function body.
 
+func _exit_tree():
+	global.playerVelocity = velocity
+
 func get_input():
 	# Detect up/down/left/right keystate and only move when pressed.
 	velocity.x = 0 if not global.slidingLevel else MOVE_SPEED
+	
+	if Input.is_action_just_pressed("ui_up") and is_on_floor():
+		jump = true
+		velocity.y = JUMP_SPEED
 	
 	if Input.is_action_pressed('ui_right'):
 		$Sprite.flip_h = false
@@ -30,14 +39,10 @@ func get_input():
 	if Input.is_action_pressed('ui_left') and not global.slidingLevel:
 		$Sprite.flip_h = true
 		velocity.x -= MOVE_SPEED
-		
-	if Input.is_action_just_pressed("ui_up"):
-		jump = true
-		if is_on_floor():
-			velocity.y = JUMP_SPEED
 	
 	if global.slidingLevel:
-		$Sprite.animation = 'slide'
+		if not hit:
+			$Sprite.animation = 'slide'
 		$CollisionShape2D.position.x = 17
 		$Area2D/CollisionShape2D.position.x = 17
 	else:
@@ -51,22 +56,34 @@ func get_input():
 			$Sprite.animation = 'run'
 
 func _physics_process(delta):
-	get_input()
-	velocity.y += GRAVITY * delta
-	if jump and is_on_floor() and velocity.y >= 0:
-		jump = false
-	velocity = move_and_slide(velocity, Vector2(0, -1))
+	if not dead:
+		get_input()
+		velocity.y += GRAVITY * delta
+		if jump and is_on_floor():
+			jump = false
+		velocity = move_and_slide(velocity, global.playerUp)
 
 func _on_Area2D_body_entered(body):
 	if 'Barrel' in body.get_name() or 'Fire' in body.get_name():
 		hit = true
 		$Sprite.animation = $Sprite.animation + '_hit'
-		health -= body.DAMAGE
-		global.playerHealth = health
-		emit_signal("playerHit", health, MAX_HEALTH)
+		global.playerHealth -= body.DAMAGE
+		emit_signal("playerHit", global.playerHealth, MAX_HEALTH)
+		if global.playerHealth <= 0:
+			$DeathTimer.start()
+			dead = true
+			emit_signal("gameOver", false)
 		$HitTimer.start()
 	pass # Replace with function body.
 
 func _on_HitTimer_timeout():
 	hit = false
 	pass # Replace with function body.
+	
+func _on_Sprite_animation_finished():
+	if $Sprite.animation == 'die':
+		emit_signal("gameOver", true)
+	pass # Replace with function body.
+
+func _on_DeathTimer_timeout():
+	$Sprite.animation = 'die'

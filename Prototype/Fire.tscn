@@ -25,5 +25,5 @@ polygon = PoolVector2Array( -24, 32, 40, 32, 39.9485, 13.8943, 34.7457, 11.6645,
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
-frame = 1
+frame = 2
 playing = true

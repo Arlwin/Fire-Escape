@@ -1,6 +1,6 @@
 extends StaticBody2D
 
-export var DAMAGE = 20
+export var DAMAGE = 10
 
 # Declare member variables here. Examples:
 # var a = 2
