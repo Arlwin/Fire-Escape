@@ -6,6 +6,7 @@ signal hideTutDialog()
 signal gameOver()
 
 onready var global = get_node("/root/Global")
+onready var theme = get_node("/root/GameTheme")
 
 const BARREL_SCENE = preload("res://Prototype/Barrel.tscn")
 const OBS_SCENE = preload("res://Prototype/Fire.tscn")
@@ -53,6 +54,7 @@ func _on_Player_playerHit(value, total):
 	
 func _on_NextLevel_body_entered(body):
 	if (body.get_name() == 'Player'):
+		emit_signal("nextLevel")
 		if global.tutorial:
 			global.tutorial = false
 		global.rooms += 1
@@ -60,8 +62,9 @@ func _on_NextLevel_body_entered(body):
 	pass # Replace with function body.
 
 func _on_Player_gameOver(done):
-	print(done)
 	if not done:
+		theme.get_node("MainTheme").stop()
+		theme.get_node("DeathTheme").play()
 		$Player/Camera2D.current = true
 	else:
 		remove_child($Player)

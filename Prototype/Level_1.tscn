@@ -1,11 +1,20 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Prototype/Level_New.gd" type="Script" id=1]
+[ext_resource path="res://initialAssets/initBg4.png" type="Texture" id=2]
 [ext_resource path="res://initialAssets/initFg3.png" type="Texture" id=3]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
 
 [sub_resource type="PhysicsMaterial" id=2]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 20, 380 )
 
 [node name="Level" type="Node2D"]
@@ -14,6 +23,11 @@ __meta__ = {
 "_edit_group_": true
 }
 Ground_Offset = 570
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -1 )
+frames = SubResource( 1 )
+centered = false
 
 [node name="BarrelTimer" type="Timer" parent="."]
 wait_time = 2.0
@@ -25,27 +39,27 @@ wait_time = 2.5
 position = Vector2( 640, 570 )
 
 [node name="Floor" type="StaticBody2D" parent="FloorPlane"]
-rotation = 0.20944
-scale = Vector2( 1, 1 )
+rotation = 0.698132
 collision_layer = 9
 physics_material_override = SubResource( 2 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FloorPlane/Floor"]
 position = Vector2( -900, -570 )
-scale = Vector2( 1, 1 )
 build_mode = 1
 polygon = PoolVector2Array( -16, 568, 1816, 568, 1816, 720, -16, 720 )
 
 [node name="Sprite" type="Sprite" parent="FloorPlane/Floor"]
 position = Vector2( 0, 75 )
-scale = Vector2( 1, 1 )
 texture = ExtResource( 3 )
 
 [node name="Previous Wall" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Previous Wall"]
 position = Vector2( -20, 360 )
-shape = SubResource( 1 )
+shape = SubResource( 3 )
+
+[node name="Fire2Timer" type="Timer" parent="."]
 
 [connection signal="timeout" from="BarrelTimer" to="." method="_on_BarrelTimer_timeout"]
 [connection signal="timeout" from="FireTimer" to="." method="_on_FireTimer_timeout"]
+[connection signal="timeout" from="Fire2Timer" to="." method="_on_Fire2Timer_timeout"]

@@ -3,6 +3,7 @@ extends Node
 # Game State
 var rooms = 0
 var gameOver = false
+var paused = false
 
 # Helpers
 var tutorial = true

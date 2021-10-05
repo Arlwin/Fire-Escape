@@ -11,16 +11,19 @@ config_version=4
 [application]
 
 config/name="Fire Escape"
+run/main_scene="res://Prototype/Prototype.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 Global="*res://Prototype/Global.gd"
+GameTheme="*res://Prototype/MainTheme.tscn"
 
 [display]
 
 window/size/width=1280
 window/size/height=720
+window/size/resizable=false
 
 [global]
 

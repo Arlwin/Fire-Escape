@@ -8,11 +8,14 @@
 script = ExtResource( 5 )
 
 [node name="HUD" parent="." instance=ExtResource( 2 )]
+pause_mode = 2
 layer = -1
 
 [node name="Main" parent="." instance=ExtResource( 1 )]
 
+[connection signal="pause" from="HUD" to="." method="_on_HUD_pause"]
 [connection signal="reset" from="HUD" to="." method="_on_HUD_reset"]
 [connection signal="gameOver" from="Main" to="." method="_on_Main_gameOver"]
 [connection signal="hideTutDialog" from="Main" to="." method="_on_Main_hideTutDialog"]
+[connection signal="nextLevel" from="Main" to="." method="_on_Main_nextLevel"]
 [connection signal="playerHit" from="Main" to="." method="_on_Main_playerHit"]

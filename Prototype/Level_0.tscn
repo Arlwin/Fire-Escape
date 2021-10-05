@@ -1,14 +1,14 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Prototype/Level.gd" type="Script" id=1]
 [ext_resource path="res://Prototype/Fire.tscn" type="PackedScene" id=2]
 [ext_resource path="res://initialAssets/initFg3.png" type="Texture" id=3]
+[ext_resource path="res://Prototype/Fire2.tscn" type="PackedScene" id=4]
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 
 [node name="BarrelTimer" type="Timer" parent="."]
 wait_time = 2.0
@@ -28,6 +28,36 @@ polygon = PoolVector2Array( 0, 584, 1280, 584, 1280, 744, 0, 744 )
 
 [node name="Fire" parent="." instance=ExtResource( 2 )]
 position = Vector2( 800, 552 )
+
+[node name="Fire2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 40, 432 )
+
+[node name="Fire3" parent="." instance=ExtResource( 4 )]
+position = Vector2( 1176, 400 )
+
+[node name="Fire12" parent="." instance=ExtResource( 4 )]
+position = Vector2( 960, 486 )
+
+[node name="Fire6" parent="." instance=ExtResource( 4 )]
+position = Vector2( 1208, 240 )
+
+[node name="Fire8" parent="." instance=ExtResource( 4 )]
+position = Vector2( 56, 264 )
+
+[node name="Fire7" parent="." instance=ExtResource( 4 )]
+position = Vector2( 728, 104 )
+
+[node name="Fire11" parent="." instance=ExtResource( 4 )]
+position = Vector2( 424, 104 )
+
+[node name="Fire4" parent="." instance=ExtResource( 4 )]
+position = Vector2( 72, 128 )
+
+[node name="Fire9" parent="." instance=ExtResource( 4 )]
+position = Vector2( 216, 136 )
+
+[node name="Fire5" parent="." instance=ExtResource( 4 )]
+position = Vector2( 1152, 104 )
 
 [connection signal="timeout" from="BarrelTimer" to="." method="_on_BarrelTimer_timeout"]
 [connection signal="timeout" from="FireTimer" to="." method="_on_FireTimer_timeout"]
